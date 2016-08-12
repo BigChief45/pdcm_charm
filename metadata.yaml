@@ -1,0 +1,16 @@
+name: pdcm
+summary: monitor itri cloud
+maintainer: Daniel <Daniel@ubuntu>
+description: |
+  monitoring cloud
+tags:
+  - monitoring
+
+subordinate: false
+requires:
+  identity-admin:
+    interface: keystone-admin
+
+provides:
+  pdcm-amqp:
+    interface: pdcm

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+juju-log "Obtaining OpenStack RabbitMQ credentials"
+status-set maintenance "Obtaining OpenStack RabbitMQ credentials"
+
+# Source the PDCM OpenStack RabbitMQ credentials
+source /home/zenoss/openstack_amqp
+
+# Set the RabbitMQ Values into the relation
+relation-set zenoss_device=`config-get openstack_device_name`
+relation-set amqp_user=`echo $AMQP_USERID`
+relation-set amqp_password=`echo $AMQP_PASSWORD`
+relation-set amqp_hostname=`echo $AMQP_HOSTNAME`
+relation-set amqp_port=`echo $AMQP_PORT`
+relation-set amqp_virtual_host=`echo $AMQP_VIRTUAL_HOST`
+
+juju-log "OpenStack RabbitMQ configuration finished"
+status-set active "OpenStack RabbitMQ configured"
+

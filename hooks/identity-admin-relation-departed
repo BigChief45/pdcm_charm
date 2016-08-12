@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+juju-log $JUJU_REMOTE_UNIT departed
+
+# Remove the Keystone credentials text file
+sudo rm -f /home/zenoss/keystone
+
+# Call Python script with zendmd to remove all OpenStack device references
+juju-log "Removing OpenStack devices..."
+status-set maintenance "Removing OpenStack devices"
+
+# First, store the charm directory for the zenoss session
+dir=$CHARM_DIR
+
+# Open a Zenoss shell with heredoc
+sudo -u zenoss bash << EOF
+source /home/zenoss/zenoss_env
+zendmd --script=$dir/helpers/remove_openstack.py
+EOF
+
+status-set active "OpenStack devices removed"

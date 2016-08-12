@@ -1,0 +1,10 @@
+options:
+  server_ip:
+    type: string
+    #default: 10.209.23.1
+    default: 100.67.130.3
+    description: "Remote repository server where ZenPacks are obtained from"
+  openstack_device_name:
+    type: string
+    default: OpenStack
+    description: "The name of the OpenStack Infrastructure Endpoint device in Zenoss"
